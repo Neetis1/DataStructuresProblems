@@ -48,3 +48,33 @@ public:
 		return longestContArray;
 	}
 };
+
+
+// Solved again 
+
+class Solution {
+public:
+    // This prblem we wll solve using a hashmap count and index, how? we will add +1 to the count if we encounter a 1 and
+    //-1 if encounter a 0. we then store the index in the hasmap. we will also keep a max variable to store the max length 
+    //occurrred so far and update it everytime we get any count value twice we update the max count if it greter than prev max  
+    int findMaxLength(vector<int>& nums) {
+        int s = nums.size();
+        if(s ==0 || s==1)
+            return 0;
+        
+        unordered_map<int,int>m;
+        int maxCount=0;
+        int count=0;
+        m[count] = -1;
+        for(int i=0;i<s;i++){
+            if(nums[i] == 0) count--;
+            else if(nums[i] ==1 ) count++;
+            if(m.find(count) != m.end()){
+                maxCount = max(maxCount, i - m[count]);
+            }
+            else
+                m[count] =i;
+        }
+        return maxCount;
+    }
+};
